@@ -21,13 +21,20 @@ def novel_detail(request, novel_id):
 def chapter_detail(request, novel_id, number):
     novel = get_object_or_404(Novel, id=novel_id)
     chapter = get_object_or_404(Chapter, novel=novel, number=number)
-    return render(request, "chapter_detail.html", {"novel": novel, "chapter": chapter})
-# Bölüm sayfası (sadece giriş yapmış kullanıcı okuyabilir)
+
+    prev_chapter = Chapter.objects.filter(novel=novel, number__lt=chapter.number).order_by('-number').first()
+    next_chapter = Chapter.objects.filter(novel=novel, number__gt=chapter.number).order_by('number').first()
+
+    return render(request, "chapter_detail.html", {
+        "novel": novel,
+        "chapter": chapter,
+        "prev_chapter": prev_chapter,
+        "next_chapter": next_chapter,
+    })
 @login_required
 def chapter(request, id):
     chapter = get_object_or_404(Chapter, id=id)
     return render(request, "chapter.html", {"chapter": chapter})
-
 # Kayıt olma
 def register(request):
     if request.method == "POST":
