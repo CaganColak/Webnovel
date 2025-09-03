@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-uzmikm%6+qkivut_&4#++7r@!2#mip1!ng1r-)m@_0k8x-um5a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['webnovel-kohp.onrender.com', '127.0.0.1', 'localhost']
+
 
 
 # Application definition
