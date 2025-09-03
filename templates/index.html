@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Ana Sayfa - Webnovel Platformu{% endblock %}
+
+{% block content %}
+<div class="row">
+    {% for novel in novels %}
+    <div class="col-md-3 col-sm-6">
+        <div class="novel-card text-center">
+            <a href="{% url 'novel_detail' novel.id %}">
+                {% if novel.cover %}
+                    <img src="{{ novel.cover.url }}" alt="{{ novel.title }}" class="img-fluid">
+                {% else %}
+                    <img src="https://via.placeholder.com/150x220?text=No+Cover" alt="Kapak Yok" class="img-fluid">
+                {% endif %}
+            </a>
+            <div class="novel-title mt-2">
+                <a href="{% url 'novel_detail' novel.id %}">{{ novel.title }}</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+        <p>Henüz roman eklenmedi.</p>
+    {% endfor %}
+</div>
+{% endblock %}

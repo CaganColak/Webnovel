@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}{{ novel.title }} - Webnovel{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Sol: Kapak ve bilgiler -->
+    <div class="col-md-4">
+        <img src="{{ novel.cover.url }}" alt="{{ novel.title }}" class="img-fluid rounded">
+    </div>
+    <div class="col-md-8 novel-card">
+        <h2>{{ novel.title }}</h2>
+        <p><b>Durum:</b> {{ novel.status }}</p>
+        <p><b>Kategoriler:</b> {{ novel.categories }}</p>
+        <hr>
+        <p>{{ novel.description }}</p>
+        {% if chapters %}
+            <a href="{% url 'chapter_detail' novel.id chapters.last.number %}" class="btn btn-danger">
+                İlk Bölümü Oku
+            </a>
+            <a href="{% url 'chapter_detail' novel.id chapters.first.number %}" class="btn btn-dark">
+                Son Bölümü Oku
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Bölümler -->
+<div class="row mt-4">
+    <div class="col-md-12 novel-card">
+        <h4>Tüm Bölümler</h4>
+        <div class="chapter-list">
+            {% for chapter in chapters %}
+                <a href="{% url 'chapter_detail' novel.id chapter.number %}">
+                    Bölüm {{ chapter.number }} - {{ chapter.title }}
+                    <small class="text-muted float-end">{{ chapter.created_at|date:"d.m.Y" }}</small>
+                </a>
+            {% empty %}
+                <p>Henüz bölüm eklenmedi.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ chapter.title }}</title>
+</head>
+<body>
+    <h1>{{ chapter.title }}</h1>
+    <p><b>{{ chapter.novel.title }}</b> - Bölüm {{ chapter.number }}</p>
+    <hr>
+    <div style="white-space: pre-line;">{{ chapter.content }}</div>  <!-- 📌 Metin burada -->
+    <hr>
+    <a href="{% url 'novel_detail' chapter.novel.id %}">← Roman sayfasına geri dön</a>
+</body>
+</html>
